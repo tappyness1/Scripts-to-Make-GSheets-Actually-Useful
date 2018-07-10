@@ -1,0 +1,13 @@
+// update the named range where needed
+
+function AutoUpdateLogRange() {
+  // get the count of the rows in the sheet
+  
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheets()[1];
+  var lastrow = Number(sheet.getLastRow());
+  Logger.log(lastrow);
+  
+  //specify the range name and the range below but do not change the lastrow var
+  spreadsheet.setNamedRange('Logs', sheet.getRange('A1:F' + lastrow));
+};
