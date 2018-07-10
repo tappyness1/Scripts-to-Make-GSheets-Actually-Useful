@@ -5,10 +5,18 @@ function AutoUpdatePivotTable() {
   // sheet, then it will be spreadsheet.getSheets()[0]
   var sourcesheet = spreadsheet.getSheets()[1];
   var lastrow = Number(sourcesheet.getLastRow());
+  
+  // you need to specify the range of data here under after getRange
   var sourceData = sourcesheet.getRange('Log!A1:F' + lastrow);
   
   // same deal with the source date, except you now need to specify which sheet is your pivot table residing in 
   var pivotsheet = spreadsheet.getSheets()[0];
+  
+  // basically, what this script does is creates a whole new PT onto your existing PT. It's the same virtually. Below is just the one I used
+  // so customise it how you want.
+  // if you want to know the PT configuration of yours, go record a macro and check everything there by updating the PT once
+  
+  // where your PT is currently residing in
   var pivotTable = pivotsheet.getRange('A1').createPivotTable(sourceData);
   var pivotValue = pivotTable.addPivotValue(4, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
   pivotValue.setDisplayName('Done');
