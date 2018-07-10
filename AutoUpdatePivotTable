@@ -1,0 +1,17 @@
+function AutoUpdatePivotTable() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  
+  // define the source data by changing the index of the sheet. if your source data is the first
+  // sheet, then it will be spreadsheet.getSheets()[0]
+  var sourcesheet = spreadsheet.getSheets()[1];
+  var lastrow = Number(sourcesheet.getLastRow());
+  var sourceData = sourcesheet.getRange('Log!A1:F' + lastrow);
+  
+  // same deal with the source date, except you now need to specify which sheet is your pivot table residing in 
+  var pivotsheet = spreadsheet.getSheets()[0];
+  var pivotTable = pivotsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addPivotValue(4, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  pivotValue.setDisplayName('Done');
+  var pivotGroup = pivotTable.addRowGroup(4);
+  pivotGroup.showTotals(false);
+};
